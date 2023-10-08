@@ -1,17 +1,12 @@
 <?php
 
-namespace App\Algoritma;
-
 class Persamaan {
-    function cariNilaiX($paramX, $paramY, $paramHasil){
-        return $paramHasil/$paramX;
-    }
-    function cariNilaiY($paramX, $paramY, $paramHasil){
-        return $paramHasil/$paramY;
-    }
-    public $nilaiX = 0;
-    public $nilaiY = 0;
-    public $hasil = 0;
+    public $nilaiX;
+    public $nilaiY;
+    public $hasil;
+
+    public $koordinatX;
+    public $koordinatY;
 
     public function __construct($nilaiX, $nilaiY, $hasil)
     {
@@ -19,11 +14,9 @@ class Persamaan {
         $this->nilaiY = $nilaiY;
         $this->hasil = $hasil;
 
-    }
-    function cetakNilaiX(){
-        return $this->cariNilaiX($this->nilaiX, $this->nilaiY, $this->hasil);
-    }
-    function cetakNilaiY(){
-        return $this->cariNilaiY($this->nilaiX, $this->nilaiY, $this->hasil);
+        if($nilaiX != 0 || $nilaiY !=0){
+            $this->koordinatX = [$this->hasil/$this->nilaiX, 0];
+            $this->koordinatY = [0, $this->hasil/$this->nilaiY];
+        }
     }
 }

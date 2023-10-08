@@ -6,11 +6,11 @@
     <title>Linear Programming</title>
     <link rel="stylesheet" href="./css/output.css">
 </head>
-<body>
+<body class="bg-yellow-400">
     <h1 class="text-4xl text-center font-bold py-6">Riset Operasional : Linear programming</h1>
     
     <div class="container px-10">
-        <form class="grid grid-cols-2 grid-flow-col gap-4" action="algoritma.php" method="POST">
+        <form class="grid grid-rows grid-flow-col gap-4" action="algoritma.php" method="POST">
             
             <div>
                 <!-- Unit -->
