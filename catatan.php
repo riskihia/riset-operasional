@@ -4,10 +4,10 @@ include_once("batasan.php");
 
 // membuat funcion bantuan
 function cari_titik_potong_batasan($nilai_batasan, $nilai_unit, $nilai_unit_yang_dicari, $hasil){
-    // echo $nilai_batasan."<br>"; // nilai batasan x atau batasan y ex : nilai_batasan_unit_1
-    // echo $nilai_unit."<br>"; // nilai x,y
-    // echo $nilai_unit_yang_dicari."<br>"; // nilai x,y
-    // echo $hasil."<br>"; // batasan atau hasil persamaan ex: persamaan->hasil
+    echo $nilai_batasan."<br>"; // nilai batasan x atau batasan y ex : nilai_batasan_unit_1
+    echo $nilai_unit."<br>"; // nilai x,y
+    echo $nilai_unit_yang_dicari."<br>"; // nilai x,y
+    echo $hasil."<br>"; // batasan atau hasil persamaan ex: persamaan->hasil
 
     $hasil_sementara = $hasil; 
     $nilai_sementara_unit = $nilai_unit * $nilai_batasan; //konstanta x dikali dengan variabel x 
@@ -41,18 +41,20 @@ function subsitusi($variabel, $nilaiSubsitusi, $nilaiYangDicari ,$hasil){
 }
 
 // Menangkap varibel dari form
-$nama_unit_1 = $_POST["nama_unit_1"];
-$nama_unit_2 = $_POST["nama_unit_2"];
-$nilai_batasan_1 = $_POST["nilai_batasan_1"];
-$nilai_batasan_2 = $_POST["nilai_batasan_2"];
-$nilai_unit_1_untuk_batasan_1 = $_POST["nilai_unit_1_untuk_batasan_1"];
-$nilai_unit_2_untuk_batasan_1 = $_POST["nilai_unit_2_untuk_batasan_1"];
-$nilai_unit_1_untuk_batasan_2 = $_POST["nilai_unit_1_untuk_batasan_2"];
-$nilai_unit_2_untuk_batasan_2 = $_POST["nilai_unit_2_untuk_batasan_2"];
-$nilai_batasan_unit_1 = $_POST["nilai_batasan_unit_1"];
-$nilai_batasan_unit_2 = $_POST["nilai_batasan_unit_2"];
-$nilai_keuntungan_unit_1 = $_POST["nilai_keuntungan_unit_1"];
-$nilai_keuntungan_unit_2 = $_POST["nilai_keuntungan_unit_2"];
+$nama_unit_1 = $_POST["nama_unit_1"] = "mtk";
+$nama_unit_2 = $_POST["nama_unit_2"] = "bahasa";
+$nilai_batasan_1 = $_POST["nilai_batasan_1"] = 240;
+$nilai_batasan_2 = $_POST["nilai_batasan_2"] = 100;
+// $nilai_batasan_1 = $_POST["nilai_batasan_1"] = 3;
+// $nilai_batasan_2 = $_POST["nilai_batasan_2"] = 5;
+$nilai_unit_1_untuk_batasan_1 = $_POST["nilai_unit_1_untuk_batasan_1"] = 4;
+$nilai_unit_2_untuk_batasan_1 = $_POST["nilai_unit_2_untuk_batasan_1"] = 3;
+$nilai_unit_1_untuk_batasan_2 = $_POST["nilai_unit_1_untuk_batasan_2"] = 2;
+$nilai_unit_2_untuk_batasan_2 = $_POST["nilai_unit_2_untuk_batasan_2"] = 1;
+$nilai_batasan_unit_1 = $_POST["nilai_batasan_unit_1"] = 0;
+$nilai_batasan_unit_2 = $_POST["nilai_batasan_unit_2"] = 0;
+$nilai_keuntungan_unit_1 = $_POST["nilai_keuntungan_unit_1"] = 7;
+$nilai_keuntungan_unit_2 = $_POST["nilai_keuntungan_unit_2"] = 5;
 
 // Menentukan garis : garis miring dari persamaan ataupun dari batasan
 $titikArsiran = [
@@ -90,6 +92,8 @@ if(isset($persamaan1) && isset($persamaan2)){
     //kasus jika garis satu x lebih besar, dan y lebih kecil dari garis dua
     if($persamaan1->koordinatX[0] > $persamaan2->koordinatX[0]){
         if($persamaan1->koordinatY[1] < $persamaan2->koordinatY[1]){
+            echo "ya, berititik potong"."<br>";
+
             $selisih = $persamaan1->nilaiX - $persamaan2->nilaiX;
             $selisih == 1 ? $selisih+1 : $selisih; //jika selisih 1 maka, tambahkan nilainya dengan 1
             
@@ -103,13 +107,15 @@ if(isset($persamaan1) && isset($persamaan2)){
 
             array_push($titikPotong, [$titikPotongTemp[0], $titikPotongTemp[1]]); 
         }else{
-            // echo "tidak, bertitik potong"."<br>";
+            echo "tidak, bertitik potong"."<br>";
         }
     }
 
     //kasus jika garis dua x lebih besar, dan y lebih kecil dari garis satu
     else if($persamaan2->koordinatX[0] > $persamaan1->koordinatX[0]){
-        if($persamaan2->koordinatY[1] < $persamaan1->koordinatY[1]){            
+        if($persamaan2->koordinatY[1] < $persamaan1->koordinatY[1]){
+            echo "ya, berititik potong";
+            
             $selisih = $persamaan2->nilaiX - $persamaan1->nilaiX;
             $selisih == 1 ? $selisih+1 : $selisih; //jika selisih 1 maka, tambahkan nilainya dengan 1
 
@@ -123,7 +129,7 @@ if(isset($persamaan1) && isset($persamaan2)){
             
             array_push($titikPotong, [$titikPotongTemp[0], $titikPotongTemp[1]]);
         }else{
-            // echo "tidak, bertitik potong"."<br>";
+            echo "tidak, bertitik potong"."<br>";
         }
 
     }
@@ -134,14 +140,18 @@ if(isset($persamaan1) && isset($persamaan2)){
 if(isset($persamaan1)){
     if(isset($batasanX)){
         //garis miring satu dan garis batas x bertitik potong
-        if($persamaan1->koordinatX[0] > $batasanX->koordinatX){            
+        if($persamaan1->koordinatX[0] > $batasanX->koordinatX){
+            echo "garis miring 1 bertitik potong dengan x"."<br>";
+            
             // hitung titik potong menggunakan function cari titik potong
             $titik_cari = cari_titik_potong_batasan($batasanX->koordinatX, $persamaan1->nilaiX, $persamaan1->nilaiY, $persamaan1->hasil);
             array_push($titikPotong, [$batasanX->koordinatX, $titik_cari]);
         }
     }
     if(isset($batasanY)){
-        if($persamaan1->koordinatY > $batasanY->koordinatY){            
+        if($persamaan1->koordinatY > $batasanY->koordinatY){
+            echo "garis miring 1 bertitik potong dengan y"."<br>";
+            
             // hitung titik potong menggunakan function cari titik potong
             $titik_cari = cari_titik_potong_batasan($batasanY->koordinatY, $persamaan1->nilaiY, $persamaan1->nilaiX, $persamaan1->hasil);
             array_push($titikPotong, [$titik_cari, $batasanY->koordinatY]);
@@ -153,6 +163,8 @@ if(isset($persamaan2)){
     if(isset($batasanX)){
         //garis miring satu dan garis batas x bertitik potong
         if($persamaan2->koordinatX > $batasanX->koordinatX){
+            echo "garis miring 2 bertitik potong dengan x"."<br>";
+
             // hitung titik potong menggunakan function cari titik potong
             $titik_cari = cari_titik_potong_batasan($batasanX->koordinatX, $persamaan2->nilaiX, $persamaan2->nilaiY, $persamaan2->hasil);
             array_push($titikPotong, [$batasanX->koordinatX, $titik_cari]);
@@ -160,6 +172,8 @@ if(isset($persamaan2)){
     }
     if(isset($batasanY)){
         if($persamaan2->koordinatY > $batasanY->koordinatY){
+            echo "garis miring 2 bertitik potong dengan y"."<br>";
+
             // hitung titik potong menggunakan function cari titik potong
             $titik_cari = cari_titik_potong_batasan($batasanY->koordinatY, $persamaan2->nilaiY, $persamaan2->nilaiX, $persamaan2->hasil);
             array_push($titikPotong, [$titik_cari, $batasanY->koordinatY]);
