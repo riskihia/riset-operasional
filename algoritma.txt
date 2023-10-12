@@ -1,0 +1,235 @@
+//sub Program
+SUBROUTINE hitungNilaiMaksimum(titikArsiran, labaX, labaY)
+    hasil = 0;
+    hasil_max = 0;
+    titik_dan_hasil = [];
+
+    for(x=0; x < count(titikArsiran); x++)
+        hasil= titikArsiran[x][0] * labaX + titikArsiran[x][1] * labaY;
+        if(hasil >= hasil_max)
+            hasil_max = hasil;
+            titik_dan_hasil["titik"] =  titikArsiran[x];
+            titik_dan_hasil["hasil"] = hasil_max;
+        endif
+    endfor
+
+    return titik_dan_hasil;
+ENDSUBROUTINE
+
+SUBROUTINE cari_titik_potong_batasan(nilai_batasan, nilai_unit, nilai_unit_yang_dicari, hasil)
+    hasil_sementara = hasil; 
+    nilai_sementara_unit = nilai_unit * nilai_batasan; //konstanta x dikali dengan variabel x 
+    hasil_sementara -= nilai_sementara_unit;
+    nilai_sementara_yang_dicari = hasil_sementara/nilai_unit_yang_dicari;
+    nilai_sementara_yang_dicari = number_format(nilai_sementara_yang_dicari, 1);
+
+    return nilai_sementara_yang_dicari;
+ENDSUBROUTINE
+
+SUBROUTINE eliminasi(nilai1, nilai2, hasil1, hasil2)
+    tempNilai = nilai1-nilai2;
+    tempHasil = hasil1-hasil2;
+    if(tempNilai == 0)
+        return tempHasil;
+    else
+        return tempHasil/tempNilai;
+    endif
+ENDSUBROUTINE
+
+SUBROUTINE subsitusi(variabel, nilaiSubsitusi, nilaiYangDicari ,hasil)
+    hasilSubsitusi = variabel * nilaiSubsitusi;
+    tempHasil = hasil - hasilSubsitusi;
+    return tempHasil/nilaiYangDicari;
+ENDSUBROUTINE
+
+// **** Program UTAMA **** //
+Program Algoritma_Linear_Programming
+
+//deklarasi
+class persamaan{
+    public nilaiX;
+    public nilaiY;
+    public hasil;
+
+    public koordinatX;
+    public koordinatY;
+
+    public function __construct(nilaiX, nilaiY, hasil)
+}
+class batasan{
+    public koordinatX = 0;
+    public koordinatY = 0;
+
+    public function __construct(nilaiX = 0, nilaiY = 0)
+}
+
+// inisialisasi 
+String nama_unit_1 = input user (Nama unit 1)
+String nama_unit_2 = input user (Nama unit 2)
+String nilai_batasan_1 = input user (Nilai batasan 1)
+String nilai_batasan_2 = input user (Nilai batasan 1)
+String nilai_unit_1_untuk_batasan_1 = input user (Nilai Unit 1 untuk Batasan 1)
+String nilai_unit_2_untuk_batasan_1 = input user (Nilai Unit 2 untuk Batasan 1)
+String nilai_unit_1_untuk_batasan_2 = input user (Nilai Unit 1 untuk Batasan 2)
+String nilai_unit_2_untuk_batasan_2 = input user (Nilai Unit 2 untuk Batasan 2)
+String nilai_batasan_unit_1 = input user (Nilai Batasan Unit 1)
+String nilai_batasan_unit_2 = input user (Nilai Batasan Unit 2)
+String nilai_keuntungan_unit_1 = input user (Nilai Keuntungan Unit 1)
+String nilai_keuntungan_unit_2 = input user (Nilai Keuntungan Unit 1)
+
+array titikArsiran = [
+    [0,0]
+];
+array titikX = [];
+array titikY = [];
+array titikPotong = [];
+array titikPotongTemp = [];
+
+
+//membuat objek persamaan
+if(nilai_batasan_1 != 0 && nilai_unit_1_untuk_batasan_1 != 0 && nilai_unit_2_untuk_batasan_1 != 0)
+    persamaan1 = new Persamaan(nilai_unit_1_untuk_batasan_1, nilai_unit_2_untuk_batasan_1, nilai_batasan_1);
+endif
+
+if(nilai_batasan_2 != 0 && nilai_unit_1_untuk_batasan_2 !=0 && nilai_unit_2_untuk_batasan_2 != 0)
+    persamaan2 = new Persamaan(nilai_unit_1_untuk_batasan_2, nilai_unit_2_untuk_batasan_2, nilai_batasan_2);
+endif
+
+//membuat objek batasan
+if (nilai_batasan_unit_1 != 0)
+    batasanX = new Batasan(nilai_batasan_unit_1, 0);
+enf if
+
+if (nilai_batasan_unit_2 != 0)
+    batasanY = new Batasan(0, nilai_batasan_unit_2);
+endif
+
+//cek apakah ada titik potong antara garis dengan batasan
+if(isset(persamaan1))
+    if(isset(batasanX))
+        //garis miring satu dan garis batas x bertitik potong
+        if(persamaan1->koordinatX[0] > batasanX->koordinatX)            
+            // hitung titik potong menggunakan function cari titik potong
+            titik_cari = cari_titik_potong_batasan(batasanX->koordinatX, persamaan1->nilaiX, persamaan1->nilaiY, persamaan1->hasil);
+            array_push(titikPotong, [batasanX->koordinatX, titik_cari]);
+        endif
+    endif
+    if(isset(batasanY))
+        if(persamaan1->koordinatY > batasanY->koordinatY)            
+            // hitung titik potong menggunakan function cari titik potong
+            titik_cari = cari_titik_potong_batasan(batasanY->koordinatY, persamaan1->nilaiY, persamaan1->nilaiX, persamaan1->hasil);
+            array_push(titikPotong, [titik_cari, batasanY->koordinatY]);
+        endif
+    endif
+
+    // memasukan niali x atau y ke dalam array titikX atau titikY
+    array_push(titikX, persamaan1->koordinatX[0]);
+    array_push(titikY, persamaan1->koordinatY[1]);
+endif
+
+
+if(isset(persamaan2))
+    if(isset(batasanX))
+        //garis miring satu dan garis batas x bertitik potong
+        if(persamaan2->koordinatX > batasanX->koordinatX)
+            // hitung titik potong menggunakan function cari titik potong
+            titik_cari = cari_titik_potong_batasan(batasanX->koordinatX, persamaan2->nilaiX, persamaan2->nilaiY, persamaan2->hasil);
+            array_push(titikPotong, [batasanX->koordinatX, titik_cari]);
+        endif
+    endif
+    if(isset(batasanY))
+        if(persamaan2->koordinatY > batasanY->koordinatY)
+            // hitung titik potong menggunakan function cari titik potong
+            titik_cari = cari_titik_potong_batasan(batasanY->koordinatY, persamaan2->nilaiY, persamaan2->nilaiX, persamaan2->hasil);
+            array_push(titikPotong, [titik_cari, batasanY->koordinatY]);
+
+        endif
+    endif
+
+    // memasukan niali x atau y ke dalam array titikX atau titikY
+    array_push(titikX, persamaan2->koordinatX[0]);
+    array_push(titikY, persamaan2->koordinatY[1]);
+endif
+
+//cek apakah ada titik potong antara 2 garis atau 2 persamaan
+if(isset(persamaan1) && isset(persamaan2))
+
+    //kasus jika garis satu x lebih besar, dan y lebih kecil dari garis dua
+    if(persamaan1->nilaiX > persamaan2->nilaiX)
+        if(persamaan2->nilaiX == 1){
+            selisih = persamaan1->nilaiX;
+        }else{
+            selisih = persamaan1->nilaiX - persamaan2->nilaiX;
+        }
+
+        persamaan2->nilaiX *= selisih;
+        persamaan2->nilaiY *= selisih;
+        persamaan2->hasil *= selisih;
+
+        // cari nilai y titik potong, dan masukan ke array
+        titikPotongTemp[1] = eliminasi(persamaan1->nilaiY, persamaan2->nilaiY, persamaan1->hasil, persamaan2->hasil);
+        titikPotongTemp[0] = subsitusi(persamaan1->nilaiY, titikPotongTemp[1], persamaan1->nilaiX, persamaan1->hasil);
+
+        array_push(titikPotong, [titikPotongTemp[0], titikPotongTemp[1]]);
+    endif
+
+    //kasus jika garis dua x lebih besar, dan y lebih kecil dari garis satu
+    else if(persamaan2->nilaiX > persamaan1->nilaiX)
+        if(persamaan2->nilaiX == 1){
+            selisih = persamaan1->nilaiX;
+        }else{
+            selisih = persamaan1->nilaiX - persamaan2->nilaiX;
+        }
+        
+        persamaan1->nilaiX *= selisih;
+        persamaan1->nilaiY *= selisih;
+        persamaan1->hasil *= selisih;
+
+        // cari nilai y titik potong, dan masukan ke array
+        titikPotongTemp[1] = eliminasi(persamaan2->nilaiY, persamaan1->nilaiY, persamaan2->hasil, persamaan1->hasil);
+        titikPotongTemp[0] = subsitusi(persamaan2->nilaiY, titikPotongTemp[1], persamaan2->nilaiX, persamaan2->hasil);
+        
+        array_push(titikPotong, [titikPotongTemp[0], titikPotongTemp[1]]);
+    endif
+endif
+
+
+//memeriksa apakah ada batasan x atau y
+if(isset(batasanX))
+    array_push(titikX, batasanX->koordinatX);
+endif
+if(isset(batasanY))
+    array_push(titikY, batasanY->koordinatY);
+endif
+
+//simpan nilai titik x dan y terendah ke array titik arsiran
+titikArsiran = titikArsiran + [min(titikX), 0];
+titikArsiran = titikArsiran + [0, min(titikY)];
+
+titikArsiran = titikPotong + titikArsiran;
+
+//hitung nilai tertinggi
+tertinggi = hitungNilaiMaksimum(titikArsiran, nilai_keuntungan_unit_1, nilai_keuntungan_unit_2);
+
+
+cetak titikArsiran, tertinggi
+
+//membuat pernyataan untuk user
+pernyataan1 = "untuk mendapatkan laba maksimum, maka ".nama_unit_1." harus bernilai ".tertinggi["titik"][0];
+pernyataan2 = "untuk mendapatkan laba maksimum, maka ".nama_unit_2." harus bernilai ".tertinggi["titik"][1];
+pernyataanhasil = "sehingga diperoleh keuntungan sebesar = Rp ".tertinggi["hasil"];
+
+dataToSend = array(
+    'pernyataan1' => pernyataan1,
+    'pernyataan2' => pernyataan2,
+    'pernyataanhasil' => pernyataanhasil,
+    'titikArsiran' => titikArsiran,
+    'tertinggi' => tertinggi
+);
+
+// Mengubah data menjadi format JSON
+jsonData = json_encode(dataToSend);
+
+// Redirect ke halaman index dengan membawa data JSON
+header("Location: index.php?data=" . urlencode(jsonData));
+exit;

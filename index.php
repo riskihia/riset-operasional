@@ -1,3 +1,21 @@
+<?php
+if (isset($_GET['data'])) {
+    $jsonData = urldecode($_GET['data']);
+    $data = json_decode($jsonData, true);
+
+    // Sekarang Anda memiliki data yang dikirim dari algoritma.php dalam bentuk array asosiatif
+    // Anda dapat mengakses elemen data seperti ini:
+    echo $data['pernyataan1'] . "<br>";
+    echo $data['pernyataan2'] . "<br>";
+    echo $data['pernyataanhasil'] . "<br>";
+    echo "<pre>";
+    print_r($data['titikArsiran']);
+    print_r($data['tertinggi']);
+    echo "</pre>";
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
