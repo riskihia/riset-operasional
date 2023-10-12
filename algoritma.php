@@ -145,10 +145,10 @@ if(isset($persamaan1) && isset($persamaan2)){
 
     //kasus jika garis dua x lebih besar, dan y lebih kecil dari garis satu
     else if($persamaan2->nilaiX > $persamaan1->nilaiX){
-        if($persamaan2->nilaiX == 1){
-            $selisih = $persamaan1->nilaiX;
+        if($persamaan1->nilaiX == 1){
+            $selisih = $persamaan2->nilaiX;
         }else{
-            $selisih = $persamaan1->nilaiX - $persamaan2->nilaiX;
+            $selisih = $persamaan2->nilaiX - $persamaan1->nilaiX;
         }
 
         $persamaan1->nilaiX *= $selisih;
@@ -164,16 +164,6 @@ if(isset($persamaan1) && isset($persamaan2)){
 
 }
 
-
-// memasukan niali x atau y ke dalam array titikX atau titikY
-// if(isset($persamaan1)){
-//     array_push($titikX, $persamaan1->koordinatX[0]);
-//     array_push($titikY, $persamaan1->koordinatY[1]);
-// }
-// if(isset($persamaan2)){
-//     array_push($titikX, $persamaan2->koordinatX[0]);
-//     array_push($titikY, $persamaan2->koordinatY[1]);
-// }
 if(isset($batasanX)){
     array_push($titikX, $batasanX->koordinatX);
 }

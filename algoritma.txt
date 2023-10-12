@@ -175,10 +175,10 @@ if(isset(persamaan1) && isset(persamaan2))
 
     //kasus jika garis dua x lebih besar, dan y lebih kecil dari garis satu
     else if(persamaan2->nilaiX > persamaan1->nilaiX)
-        if(persamaan2->nilaiX == 1){
-            selisih = persamaan1->nilaiX;
+        if(persamaan1->nilaiX == 1){
+            selisih = persamaan2->nilaiX;
         }else{
-            selisih = persamaan1->nilaiX - persamaan2->nilaiX;
+            selisih = persamaan2->nilaiX - persamaan1->nilaiX;
         }
         
         persamaan1->nilaiX *= selisih;
