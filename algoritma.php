@@ -35,18 +35,31 @@ function subsitusi($variabel, $nilaiSubsitusi, $nilaiYangDicari ,$hasil){
 }
 
 // Menangkap varibel dari form
-$nama_unit_1 = $_POST["nama_unit_1"] = "mtk";
-$nama_unit_2 = $_POST["nama_unit_2"] = "bhs";
-$nilai_batasan_1 = $_POST["nilai_batasan_1"] = 3;
-$nilai_batasan_2 = $_POST["nilai_batasan_2"] = 5;
-$nilai_unit_1_untuk_batasan_1 = $_POST["nilai_unit_1_untuk_batasan_1"] = 0;
-$nilai_unit_2_untuk_batasan_1 = $_POST["nilai_unit_2_untuk_batasan_1"] = 0;
-$nilai_unit_1_untuk_batasan_2 = $_POST["nilai_unit_1_untuk_batasan_2"] = 1;
-$nilai_unit_2_untuk_batasan_2 = $_POST["nilai_unit_2_untuk_batasan_2"] = 1;
-$nilai_batasan_unit_1 = $_POST["nilai_batasan_unit_1"] = 3;
-$nilai_batasan_unit_2 = $_POST["nilai_batasan_unit_2"] = 3;
-$nilai_keuntungan_unit_1 = $_POST["nilai_keuntungan_unit_1"] = 1000;
-$nilai_keuntungan_unit_2 = $_POST["nilai_keuntungan_unit_2"] = 800;
+// $nama_unit_1 = $_POST["nama_unit_1"] = "mtk";
+// $nama_unit_2 = $_POST["nama_unit_2"] = "bhs";
+// $nilai_batasan_1 = $_POST["nilai_batasan_1"] = 60;
+// $nilai_batasan_2 = $_POST["nilai_batasan_2"] = 40;
+// $nilai_unit_1_untuk_batasan_1 = $_POST["nilai_unit_1_untuk_batasan_1"] = 3;
+// $nilai_unit_2_untuk_batasan_1 = $_POST["nilai_unit_2_untuk_batasan_1"] = 2;
+// $nilai_unit_1_untuk_batasan_2 = $_POST["nilai_unit_1_untuk_batasan_2"] = 1;
+// $nilai_unit_2_untuk_batasan_2 = $_POST["nilai_unit_2_untuk_batasan_2"] = 2;
+// $nilai_batasan_unit_1 = $_POST["nilai_batasan_unit_1"] = 0;
+// $nilai_batasan_unit_2 = $_POST["nilai_batasan_unit_2"] = 0;
+// $nilai_keuntungan_unit_1 = $_POST["nilai_keuntungan_unit_1"] = 120000;
+// $nilai_keuntungan_unit_2 = $_POST["nilai_keuntungan_unit_2"] = 75000;
+// // Menangkap varibel dari form
+$nama_unit_1 = $_POST["nama_unit_1"];
+$nama_unit_2 = $_POST["nama_unit_2"];
+$nilai_batasan_1 = $_POST["nilai_batasan_1"];
+$nilai_batasan_2 = $_POST["nilai_batasan_2"];
+$nilai_unit_1_untuk_batasan_1 = $_POST["nilai_unit_1_untuk_batasan_1"];
+$nilai_unit_2_untuk_batasan_1 = $_POST["nilai_unit_2_untuk_batasan_1"];
+$nilai_unit_1_untuk_batasan_2 = $_POST["nilai_unit_1_untuk_batasan_2"];
+$nilai_unit_2_untuk_batasan_2 = $_POST["nilai_unit_2_untuk_batasan_2"];
+$nilai_batasan_unit_1 = $_POST["nilai_batasan_unit_1"];
+$nilai_batasan_unit_2 = $_POST["nilai_batasan_unit_2"];
+$nilai_keuntungan_unit_1 = $_POST["nilai_keuntungan_unit_1"];
+$nilai_keuntungan_unit_2 = $_POST["nilai_keuntungan_unit_2"];
 
 // Menentukan garis : garis miring dari persamaan ataupun dari batasan
 $titikArsiran = [
