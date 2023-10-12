@@ -203,8 +203,8 @@ if(isset(batasanY))
 endif
 
 //simpan nilai titik x dan y terendah ke array titik arsiran
-titikArsiran = titikArsiran + [min(titikX), 0];
-titikArsiran = titikArsiran + [0, min(titikY)];
+titikArsiran = titikPotong + [min(titikX), 0];
+titikArsiran = titikPotong + [0, min(titikY)];
 
 titikArsiran = titikPotong + titikArsiran;
 
