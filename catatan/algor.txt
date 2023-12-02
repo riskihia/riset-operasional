@@ -1,0 +1,45 @@
+1. Membuat class untuk menyimpan garis persamaan dan garis batas (tipe data objek)
+2. Menerima semua inputan user dan menyimpannya dalam variabel (tipe data string)
+3. Memeriksa apakah garis persamaan dan garis batas di input oleh user? jika ya buat variabelnya
+
+4. Sistem akan memeriksa apakah ada titik potong antara ada garis batasan dengan garis persamaan? (jika nilai
+koordinat garis persamaan < garis batas, maka ada titik potong)
+4.1 rumus yg digunakan untuk cari titik potong batasan adalah dengan subsitusi nilai garis batasan ke garis persamaan
+	x+y=5
+	x=3
+	3*1x=3
+	3+y=5
+	y = 5 - 3
+	y = 2 
+5. Sistem akan memeriksa apakah ada titik potong antara 2 garis persamaan? (jika titik x garis persamaan 1 < titik x garis persamaan 2
+, maka titik y garis persamaan 1 > titik y garis persamaan 2. berlaku hal sebaliknya dengan garis persamaan 2)
+	1:: eliminasi
+	3x + 2y = 60
+	x + 2y = 40
+	step:: cari selisih antara 3x dengan x (caranya kurangi nilai terbesar dgn terkecil, jika nilai terkecil 1 maka, selsisih 
+	adalah nilai terbesar)
+	
+	step:: kalikan semua garis dengan x terkecil dengan nilai selisih
+	3x + 6y = 120
+	setp:: lanjut kurangi nilai y1 dengan y2, dan juga hasil1 dengan hasil 2
+	
+	3x + 2y = 60
+	3x + 6y = 120
+	hasil:: -4 = -60
+	y = 15	
+	maka akan ketemu nilai y. (hasil dari y akan disimpan sebagai nilai koordinat titip potong Y)
+	
+	2::subsitusi (setelah mendapat nilai y, maka masukan nilai terebut ke persamaan)
+	3x * 2y = 60
+	y=15
+	3x + 30 = 60
+	3 x= 60 - 30
+	x = 10
+
+	ketemulah titik potong 2 garis di (10,15)
+6. menentukan titik pada garis x dan y. 
+	pada garis x: dapat dicari dengan mengetahui nilai minimum dari garis x selain 0.
+	pada garis y: dapat diketahui dengan mengetahui nilai minimum dari garis y selain 0.
+7. cari nilai maksimum dengan cara mengalikan semua titik grafik dengan laba yang diberikan oleh user
+8. cari nilai tertinggi dari semua hasil tersebut
+9. selesai

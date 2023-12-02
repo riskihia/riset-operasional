@@ -60,7 +60,20 @@ $nilai_batasan_unit_1 = $_POST["nilai_batasan_unit_1"];
 $nilai_batasan_unit_2 = $_POST["nilai_batasan_unit_2"];
 $nilai_keuntungan_unit_1 = $_POST["nilai_keuntungan_unit_1"];
 $nilai_keuntungan_unit_2 = $_POST["nilai_keuntungan_unit_2"];
+// echo "Nama Unit 1: " . $nama_unit_1 . "<br>";
+// echo "Nama Unit 2: " . $nama_unit_2 . "<br>";
+// echo "Nilai Batasan 1: " . $nilai_batasan_1 . "<br>";
+// echo "Nilai Batasan 2: " . $nilai_batasan_2 . "<br>";
+// echo "Nilai Unit 1 untuk Batasan 1: " . $nilai_unit_1_untuk_batasan_1 . "<br>";
+// echo "Nilai Unit 2 untuk Batasan 1: " . $nilai_unit_2_untuk_batasan_1 . "<br>";
+// echo "Nilai Unit 1 untuk Batasan 2: " . $nilai_unit_1_untuk_batasan_2 . "<br>";
+// echo "Nilai Unit 2 untuk Batasan 2: " . $nilai_unit_2_untuk_batasan_2 . "<br>";
+// echo "Nilai Batasan Unit 1: " . $nilai_batasan_unit_1 . "<br>";
+// echo "Nilai Batasan Unit 2: " . $nilai_batasan_unit_2 . "<br>";
+// echo "Nilai Keuntungan Unit 1: " . $nilai_keuntungan_unit_1 . "<br>";
+// echo "Nilai Keuntungan Unit 2: " . $nilai_keuntungan_unit_2 . "<br>";
 
+// die("selesia");
 // Menentukan garis : garis miring dari persamaan ataupun dari batasan
 $titikArsiran = [
     [0,0]
@@ -234,6 +247,6 @@ $dataToSend = array(
 $jsonData = json_encode($dataToSend);
 
 // Redirect ke halaman index dengan membawa data JSON
-header("Location: index.php?data=" . urlencode($jsonData));
+header("Location: start.php?data=" . urlencode($jsonData));
 exit;
 ?>
