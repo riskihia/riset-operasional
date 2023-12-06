@@ -48,32 +48,19 @@ function subsitusi($variabel, $nilaiSubsitusi, $nilaiYangDicari ,$hasil){
 // $nilai_keuntungan_unit_1 = $_POST["nilai_keuntungan_unit_1"] = 120000;
 // $nilai_keuntungan_unit_2 = $_POST["nilai_keuntungan_unit_2"] = 75000;
 // // Menangkap varibel dari form
-$nama_unit_1 = $_POST["nama_unit_1"];
-$nama_unit_2 = $_POST["nama_unit_2"];
-$nilai_batasan_1 = $_POST["nilai_batasan_1"];
-$nilai_batasan_2 = $_POST["nilai_batasan_2"];
-$nilai_unit_1_untuk_batasan_1 = $_POST["nilai_unit_1_untuk_batasan_1"];
-$nilai_unit_2_untuk_batasan_1 = $_POST["nilai_unit_2_untuk_batasan_1"];
-$nilai_unit_1_untuk_batasan_2 = $_POST["nilai_unit_1_untuk_batasan_2"];
-$nilai_unit_2_untuk_batasan_2 = $_POST["nilai_unit_2_untuk_batasan_2"];
-$nilai_batasan_unit_1 = $_POST["nilai_batasan_unit_1"];
-$nilai_batasan_unit_2 = $_POST["nilai_batasan_unit_2"];
-$nilai_keuntungan_unit_1 = $_POST["nilai_keuntungan_unit_1"];
-$nilai_keuntungan_unit_2 = $_POST["nilai_keuntungan_unit_2"];
-// echo "Nama Unit 1: " . $nama_unit_1 . "<br>";
-// echo "Nama Unit 2: " . $nama_unit_2 . "<br>";
-// echo "Nilai Batasan 1: " . $nilai_batasan_1 . "<br>";
-// echo "Nilai Batasan 2: " . $nilai_batasan_2 . "<br>";
-// echo "Nilai Unit 1 untuk Batasan 1: " . $nilai_unit_1_untuk_batasan_1 . "<br>";
-// echo "Nilai Unit 2 untuk Batasan 1: " . $nilai_unit_2_untuk_batasan_1 . "<br>";
-// echo "Nilai Unit 1 untuk Batasan 2: " . $nilai_unit_1_untuk_batasan_2 . "<br>";
-// echo "Nilai Unit 2 untuk Batasan 2: " . $nilai_unit_2_untuk_batasan_2 . "<br>";
-// echo "Nilai Batasan Unit 1: " . $nilai_batasan_unit_1 . "<br>";
-// echo "Nilai Batasan Unit 2: " . $nilai_batasan_unit_2 . "<br>";
-// echo "Nilai Keuntungan Unit 1: " . $nilai_keuntungan_unit_1 . "<br>";
-// echo "Nilai Keuntungan Unit 2: " . $nilai_keuntungan_unit_2 . "<br>";
+$nama_unit_1 = $_POST["nama_unit_1"] !== "" ? $_POST["nama_unit_1"] : "unit1";
+$nama_unit_2 = $_POST["nama_unit_2"] !== "" ? $_POST["nama_unit_2"] : "unit2";
+$nilai_batasan_1 = $_POST["nilai_batasan_1"] !== "" ? $_POST["nilai_batasan_1"] : 0;
+$nilai_batasan_2 = $_POST["nilai_batasan_2"] !== "" ? $_POST["nilai_batasan_2"] : 0;
+$nilai_unit_1_untuk_batasan_1 = $_POST["nilai_unit_1_untuk_batasan_1"] !== "" ? $_POST["nilai_unit_1_untuk_batasan_1"] : 0;
+$nilai_unit_2_untuk_batasan_1 = $_POST["nilai_unit_2_untuk_batasan_1"] !== "" ? $_POST["nilai_unit_2_untuk_batasan_1"] : 0;
+$nilai_unit_1_untuk_batasan_2 = $_POST["nilai_unit_1_untuk_batasan_2"] !== "" ? $_POST["nilai_unit_1_untuk_batasan_2"] : 0;
+$nilai_unit_2_untuk_batasan_2 = $_POST["nilai_unit_2_untuk_batasan_2"] !== "" ? $_POST["nilai_unit_2_untuk_batasan_2"] : 0;
+$nilai_batasan_unit_1 = $_POST["nilai_batasan_unit_1"] !== "" ? $_POST["nilai_batasan_unit_1"] : 0;
+$nilai_batasan_unit_2 = $_POST["nilai_batasan_unit_2"] !== "" ? $_POST["nilai_batasan_unit_2"] : 0;
+$nilai_keuntungan_unit_1 = $_POST["nilai_keuntungan_unit_1"] !== "" ? $_POST["nilai_keuntungan_unit_1"] : 0;
+$nilai_keuntungan_unit_2 = $_POST["nilai_keuntungan_unit_2"] !== "" ? $_POST["nilai_keuntungan_unit_2"] : 0;
 
-// die("selesia");
 // Menentukan garis : garis miring dari persamaan ataupun dari batasan
 $titikArsiran = [
     [0,0]
@@ -198,8 +185,13 @@ if(isset($batasanY)){
 }
 
 // memasukan nilai terendah dari titikX ke dalam array titik potong
-array_push($titikPotong, [min($titikX), 0]);
-array_push($titikPotong, [0, min($titikY)]);
+if (count($titikX) !== 0) {
+    array_push($titikPotong, [min($titikX), 0]);
+}
+if (count($titikY) !== 0) {
+    array_push($titikPotong, [0, min($titikY)]);
+}
+
 
 // memasukan array titik potong ke array arsiran
 
@@ -228,17 +220,27 @@ function hitungNilaiMaksimum($titikArsiran, $labaX, $labaY){
 $tertinggi = hitungNilaiMaksimum($titikArsiran, $nilai_keuntungan_unit_1, $nilai_keuntungan_unit_2);
 $pernyataan1 = "untuk mendapatkan laba maksimum, maka ".$nama_unit_1." harus bernilai ".$tertinggi["titik"][0]."<br>";
 $pernyataan2 = "untuk mendapatkan laba maksimum, maka ".$nama_unit_2." harus bernilai ".$tertinggi["titik"][1]."<br>";
+
+$kemungkinan1 = "Kombinasi A, yaitu dengan ".$nama_unit_1." bernilai ".$titikArsiran[3][0]." dan ".$nama_unit_2." bernilai ".$titikArsiran[3][1]." dengan keuntungan = ".($titikArsiran[3][0] * $nilai_keuntungan_unit_1) + ($titikArsiran[3][1] * $nilai_keuntungan_unit_2)."<br>";
+
+$kemungkinan2 = "Kombinasi B, yaitu dengan ".$nama_unit_1." bernilai ".$titikArsiran[2][0]." dan ".$nama_unit_2." bernilai ".$titikArsiran[2][1]." dengan keuntungan = ".($titikArsiran[2][0] * $nilai_keuntungan_unit_1) + ($titikArsiran[2][1] * $nilai_keuntungan_unit_2)."<br>";
+
+$kemungkinan3 = "Kombinasi C, yaitu dengan ".$nama_unit_1." bernilai ".$titikArsiran[0][0]." dan ".$nama_unit_2." bernilai ".$titikArsiran[0][1]." dengan keuntungan = ".($titikArsiran[0][0] * $nilai_keuntungan_unit_1) + ($titikArsiran[0][1] * $nilai_keuntungan_unit_2)."<br>";
+
+$kemungkinan4 = "Kombinasi D, yaitu dengan ".$nama_unit_1." bernilai ".$titikArsiran[1][0]." dan ".$nama_unit_2." bernilai ".$titikArsiran[1][1]." dengan keuntungan = ".($titikArsiran[1][0] * $nilai_keuntungan_unit_1) + ($titikArsiran[1][1] * $nilai_keuntungan_unit_2)."<br>";
+
+$pilihanTerbaik = "untuk mendapat laba maksimum maka ".$nama_unit_1." harus berjumlah ".$tertinggi["titik"][0]." dan ".$nama_unit_2." harus berjumlah ".$tertinggi["titik"][1]." dengan laba sebesar ". ($tertinggi["titik"][0] * $nilai_keuntungan_unit_1) + ($tertinggi["titik"][1] * $nilai_keuntungan_unit_2)."<br>";
+
 $pernyataanhasil = "sehingga diperoleh keuntungan sebesar = Rp ".$tertinggi["hasil"]."<br>";
 
-// Mengarahkan ke halaman "index" dengan membawa data sebagai parameter URL
 
-// header("Location: index.php?nama=riski");
-// exit;
 
 $dataToSend = array(
-    'pernyataan1' => $pernyataan1,
-    'pernyataan2' => $pernyataan2,
-    'pernyataanhasil' => $pernyataanhasil,
+    'kemungkinan1' => $kemungkinan1,
+    'kemungkinan2' => $kemungkinan2,
+    'kemungkinan3' => $kemungkinan3,
+    'kemungkinan4' => $kemungkinan4,
+    'pilihanTerbaik' => $pilihanTerbaik,
     'titikArsiran' => $titikArsiran,
     'tertinggi' => $tertinggi
 );
@@ -247,6 +249,6 @@ $dataToSend = array(
 $jsonData = json_encode($dataToSend);
 
 // Redirect ke halaman index dengan membawa data JSON
-header("Location: start.php?data=" . urlencode($jsonData));
+header("Location: ../index.php?data=" . urlencode($jsonData));
 exit;
 ?>
